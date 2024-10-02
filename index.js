@@ -18,7 +18,7 @@ app.post('/react', async (req, res) => {
   const { post_link, reaction_type, fb_cookie } = req.body;
 
   try {
-    const response = await axios.get('https://axl.flikers.onrender.com/api/react', {
+    const response = await axios.get('https://flikers.onrender.com/api/react', {
       params: {
         link: post_link,
         type: reaction_type,
