@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUTO REACTIONS PH VERSION BY AXL</title>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          borderRadius: {
+            'bubble': '50px',
+          },
+          colors: {
+            'custom-blue': '#1da1f2',
+            'custom-blue-dark': '#1a91da',
+            'custom-red': '#ef4444',
+            'custom-yellow': '#fbbf24',
+            'custom-green': '#10b981',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            spin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            progress: {
+              '0%': { width: '0%' },
+              '100%': { width: '100%' },
+            },
+            bounce: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            slideIn: {
+              '0%': { transform: 'translateX(-50px)', opacity: 0 },
+              '100%': { transform: 'translateX(0)', opacity: 1 },
+            },
+            pulse: {
+              '0%': { transform: 'scale(0.95)', opacity: 0.7 },
+              '70%': { transform: 'scale(1)', opacity: 1 },
+              '100%': { transform: 'scale(0.95)', opacity: 0.7 },
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.5s ease-in-out',
+            spin: 'spin 1s linear infinite',
+            progress: 'progress 2s linear infinite',
+            bounce: 'bounce 0.6s infinite',
+            slideIn: 'slideIn 0.6s ease-out forwards',
+            pulse: 'pulse 2s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; 
+      left: 50%;
+      margin-left: -80px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .ping-icon, .time-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ping-icon svg, .time-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    .time-icon svg {
+      animation: clockSpin 20s linear infinite;
+    }
+
+    .ping-text, .time-text {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
+      padding: 0.75rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #1da1f2;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #1a91da;
+    }
+
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+
+    .btn .spinner {
+      margin-left: 0.5rem;
+    }
+
+    .animated {
+      opacity: 0;
+    }
+
+    @media (max-width: 640px) {
+      .time-icon svg, .ping-icon svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem;
+      }
+    }
+
+    .ping-container {
+      transition: color 0.3s ease;
+    }
+
+    .ping-good {
+      color: #10b981; 
+    }
+
+    .ping-medium {
+      color: #fbbf24; 
+    }
+
+    .ping-bad {
+      color: #ef4444; 
+    }
+
+    .dark .ping-good {
+      color: #10b981; 
+    }
+
+    .dark .ping-medium {
+      color: #fbbf24; 
+    }
+
+    .dark .ping-bad {
+      color: #ef4444; 
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex items-center justify-center px-4 font-sans transition-all duration-500">
+  <div class="bg-white dark:bg-gray-800 p-8 rounded-bubble shadow-lg w-full max-w-md animate-fadeIn">
+    <h1 class="text-3xl font-bold mb-2 text-center animated" data-animation="slideIn">AUTO BOOST REACTIONS</h1>
+    <p style="text-align: center;">THIS TOOL IS CREATED BY : AXL 💚 </p>
+    <p class="text-center text-sm mb-6 text-gray-600 dark:text-gray-300 animated" data-animation="fadeIn">BOOST REACTIONS ON YOUR FACEBOOK POST WITH EASE!</p>
+    <div class="text-center mb-4 animated" data-animation="slideIn">
+      <div id="time" class="time-icon text-sm text-gray-600 dark:text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z" />
+        </svg>
+        <span class="time-text">00:00:00</span>
+      </div>
+      <div id="ping" class="ping-icon text-sm text-gray-600 dark:text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 8h.01M19 12h.01M5 6h.01M12 6h.01M19 6h.01M5 18h.01M12 18h.01M19 18h.01M4 4h16v16H4V4z" />
+        </svg>
+        <span class="ping-text ping-container">0 ms</span>
+      </div>
+    </div>
+    <form id="boost-form" class="space-y-6" aria-describedby="form-instructions" novalidate>
+      <div id="form-instructions" class="sr-only">
+        PLEASE FILL IN ALL FIELDS TO BOOST YOUR FACEBOOK POST REACTIONS.
+      </div>
+      <div class="relative animated" data-animation="slideIn">
+        <label for="fb_cookie" class="block text-sm font-medium mb-2">COOKIE :</label>
+        <input type="text" id="fb_cookie" name="fb_cookie" class="block w-full p-3 border border-gray-300 rounded-bubble dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-custom-blue focus:outline-none transition-all duration-300" maxlength="1000" required aria-required="true">
+        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+          <div class="tooltip">
+            <svg class="h-5 w-5 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4m0 0l4 4m-4-4v12" />
+            </svg>
+            <span class="tooltiptext">YOUR FACEBOOK SESSION COOKIE</span>
+          </div>
+        </div>
+        <p id="cookie-error" class="text-red-500 text-xs mt-2 hidden">THIS FIELD IS REQUIRED.</p>
+        <p id="cookie-counter" class="text-gray-500 text-xs mt-2 text-right">0/1000</p>
+      </div>
+      <div class="relative animated" data-animation="slideIn">
+        <label for="post_link" class="block text-sm font-medium mb-2">PUT PUBLIC POST LINK :</label>
+        <input type="url" id="post_link" name="post_link" class="block w-full p-3 border border-gray-300 rounded-bubble dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-custom-blue focus:outline-none transition-all duration-300" maxlength="500" required aria-required="true">
+        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+          <div class="tooltip">
+            <svg class="h-5 w-5 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4m0 0l4 4m-4-4v12" />
+            </svg>
+            <span class="tooltiptext">THE URL OF THE FACEBOOK POST</span>
+          </div>
+        </div>
+        <p id="link-error" class="text-red-500 text-xs mt-2 hidden">THIS FIELD IS REQUIRED AND MUST BE A VALID URL.</p>
+        <p id="link-counter" class="text-gray-500 text-xs mt-2 text-right">0/500</p>
+      </div>
+      <div id="link-preview" class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mt-4 hidden animated" data-animation="slideIn">
+        <img id="link-preview-image" src="" alt="Preview Image" class="w-full h-48 object-cover rounded-lg mb-4 hidden">
+        <h3 id="link-preview-title" class="text-lg font-bold mb-2"></h3>
+        <p id="link-preview-description" class="text-sm text-gray-600 dark:text-gray-300"></p>
+      </div>
+      <div class="animated" data-animation="slideIn">
+        <label for="reaction_type" class="block text-sm font-medium mb-2">Reaction:</label>
+        <select id="reaction_type" name="reaction_type" class="block w-full p-3 border border-gray-300 rounded-bubble dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-custom-blue focus:outline-none transition-all duration-300" required aria-required="true">
+          <option value="">SELECT AN REACTIONS</option>
+          <option value="LIKE">Like</option>
+          <option value="LOVE">Love</option>
+          <option value="HAHA">Haha</option>
+          <option value="WOW">Wow</option>
+          <option value="SAD">Sad</option>
+          <option value="ANGRY">Angry</option>
+        </select>
+        <p id="reaction-error" class="text-red-500 text-xs mt-2 hidden">THIS FIELD IS REQUIRED.</p>
+      </div>
+      <button id="submit-button" type="submit" class="btn btn-primary w-full animated" data-animation="slideIn">
+        <span id="submit-text">BOOST REACTS</span>
+        <svg id="spinner" class="hidden spinner animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+      <button id="reset-button" type="reset" class="btn btn-secondary w-full animated" data-animation="slideIn">RESET</button>
+    </form>
+    <div id="loading" class="mt-4 text-center hidden">
+      <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div class="bg-custom-blue h-2.5 rounded-full animate-progress"></div>
+      </div>
+      <p class="text-custom-blue mt-2">PROCESSING...</p>
+    </div>
+    <div id="result" class="mt-4 p-4 rounded-bubble hidden"></div>
+    <button id="back-button" class="btn btn-primary w-full hidden" onclick="window.location.href='https://www.facebook.com/https://www.facebook.com/AlexanderAxlMontreal.IAmLimitless'">MESSAGE ME!</button>
+  </div>
+
+  <script>
+    const form = document.getElementById('boost-form');
+    const cookieInput = document.getElementById('fb_cookie');
+    const linkInput = document.getElementById('post_link');
+    const reactionSelect = document.getElementById('reaction_type');
+    const cookieError = document.getElementById('cookie-error');
+    const linkError = document.getElementById('link-error');
+    const reactionError = document.getElementById('reaction-error');
+    const resultDiv = document.getElementById('result');
+    const cookieCounter = document.getElementById('cookie-counter');
+    const linkCounter = document.getElementById('link-counter');
+    const linkPreview = document.getElementById('link-preview');
+    const linkPreviewImage = document.getElementById('link-preview-image');
+    const linkPreviewTitle = document.getElementById('link-preview-title');
+    const linkPreviewDescription = document.getElementById('link-preview-description');
+    const backButton = document.getElementById('back-button');
+
+    function validateInput(input, errorElement) {
+      if (!input.value) {
+        errorElement.classList.remove('hidden');
+        input.classList.add('border-custom-red');
+        return false;
+      } else {
+        errorElement.classList.add('hidden');
+        input.classList.remove('border-custom-red');
+        return true;
+      }
+    }
+
+    function validateForm() {
+      const isCookieValid = validateInput(cookieInput, cookieError);
+      const isLinkValid = validateInput(linkInput, linkError);
+      const isReactionValid = validateInput(reactionSelect, reactionError);
+
+      return isCookieValid && isLinkValid && isReactionValid;
+    }
+
+    function updateCounter(input, counterElement, maxLength) {
+      const length = input.value.length;
+      counterElement.innerText = `${length}/${maxLength}`;
+    }
+
+    async function fetchLinkPreview(url) {
+      try {
+        const response = await fetch(`/link-preview?url=${encodeURIComponent(url)}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.image) {
+            linkPreviewImage.src = data.image;
+            linkPreviewImage.classList.remove('hidden');
+          } else {
+            linkPreviewImage.classList.add('hidden');
+          }
+          linkPreviewTitle.innerText = data.title || 'No title available';
+          linkPreviewDescription.innerText = data.description || 'No description available';
+          linkPreview.classList.remove('hidden');
+        } else {
+          linkPreview.classList.add('hidden');
+        }
+      } catch (error) {
+        linkPreview.classList.add('hidden');
+      }
+    }
+
+    function measurePing() {
+      var xhr = new XMLHttpRequest();
+      var startTime, endTime;
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          endTime = Date.now();
+          var pingTime = endTime - startTime;
+          var pingElement = document.querySelector('#ping .ping-text');
+          pingElement.textContent = pingTime + " ms";
+
+          var pingContainer = document.querySelector('.ping-container');
+          if (pingTime <= 299) {
+            pingContainer.classList.remove('ping-medium', 'ping-bad');
+            pingContainer.classList.add('ping-good');
+          } else if (pingTime <= 599) {
+            pingContainer.classList.remove('ping-good', 'ping-bad');
+            pingContainer.classList.add('ping-medium');
+          } else {
+            pingContainer.classList.remove('ping-good', 'ping-medium');
+            pingContainer.classList.add('ping-bad');
+          }
+        }
+      };
+      xhr.open("GET", location.href + "?t=" + new Date().getTime());
+      startTime = Date.now();
+      xhr.send();
+    }
+    setInterval(measurePing, 1000);
+
+    function updateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Manila',
+        hour12: true,
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+      };
+      const formattedTime = now.toLocaleString('en-US', options);
+      document.querySelector('#time .time-text').textContent = formattedTime;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        resultDiv.classList.add('hidden');
+        return;
+      }
+
+      const fb_cookie = cookieInput.value;
+      const post_link = linkInput.value;
+      const reaction_type = reactionSelect.value;
+      const loading = document.getElementById('loading');
+      const submitButton = document.getElementById('submit-button');
+      const submitText = document.getElementById('submit-text');
+      const spinner = document.getElementById('spinner');
+
+      loading.classList.remove('hidden');
+      resultDiv.classList.add('hidden');
+      submitText.classList.add('invisible');
+      spinner.classList.remove('hidden');
+
+      try {
+        const response = await fetch('/react', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ fb_cookie, post_link, reaction_type }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          resultDiv.innerHTML = '<svg class="h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Success! Your reaction has been boosted.';
+          resultDiv.className = 'mt-4 p-4 rounded-bubble bg-custom-green text-white animate-fadeIn flex items-center';
+          backButton.classList.remove('hidden');
+        } else {
+          resultDiv.innerHTML = '<svg class="h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>' + (result.error || 'An error occurred');
+          resultDiv.className = 'mt-4 p-4 rounded-bubble bg-custom-red text-white animate-fadeIn flex items-center';
+          backButton.classList.add('hidden');
+        }
+      } catch (error) {
+        resultDiv.innerHTML = '<svg class="h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> An error occurred while processing your request';
+        resultDiv.className = 'mt-4 p-4 rounded-bubble bg-custom-red text-white animate-fadeIn flex items-center';
+        backButton.classList.add('hidden');
+      } finally {
+        loading.classList.add('hidden');
+        resultDiv.classList.remove('hidden');
+        submitText.classList.remove('invisible');
+        spinner.classList.add('hidden');
+      }
+    });
+
+    form.addEventListener('reset', (e) => {
+      e.preventDefault();
+      if (confirm('Are you sure you want to reset the form?')) {
+        form.reset();
+        resultDiv.classList.add('hidden');
+        resultDiv.innerText = '';
+        cookieError.classList.add('hidden');
+        linkError.classList.add('hidden');
+        reactionError.classList.add('hidden');
+        cookieInput.classList.remove('border-custom-red');
+        linkInput.classList.remove('border-custom-red');
+        reactionSelect.classList.remove('border-custom-red');
+        cookieCounter.innerText = '0/1000';
+        linkCounter.innerText = '0/500';
+        linkPreview.classList.add('hidden');
+        backButton.classList.add('hidden');
+      }
+    });
+
+    cookieInput.addEventListener('input', () => {
+      validateInput(cookieInput, cookieError);
+      updateCounter(cookieInput, cookieCounter, 1000);
+    });
+    linkInput.addEventListener('input', () => {
+      validateInput(linkInput, linkError);
+      updateCounter(linkInput, linkCounter, 500);
+      fetchLinkPreview(linkInput.value);
+    });
+    reactionSelect.addEventListener('change', () => validateInput(reactionSelect, reactionError));
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-' + entry.target.dataset.animation);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+    });
+
+    document.querySelectorAll('.animated').forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
